@@ -3,6 +3,7 @@ Perform "npm install" on the main and Client folders, then run "npm run dev" to 
 
 # built with
 Backend: NodeJs, ExpressJs, MongoDB, Mongoose
+
 Frontend: React, JS, Bootstrap, HTML / CSS
 
 # features
