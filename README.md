@@ -13,3 +13,4 @@ User registry and authentication / terms and conditions agreement / create a new
 
 ![ex2](https://user-images.githubusercontent.com/56236726/95639563-c04d8f00-0a4d-11eb-910e-3c1df340101f.jpg)
 
+![ex1](https://user-images.githubusercontent.com/56236726/95639588-d9564000-0a4d-11eb-881f-482977be89cd.jpg)
