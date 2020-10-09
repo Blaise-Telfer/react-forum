@@ -5,16 +5,16 @@ const Schema = mongoose.Schema;
 
 const favoriteSchema = mongoose.Schema({
     userFrom: {
-		type: String
+	type: String
     },
     postId: {
-		type: String
+	type: String
     },
     postTitle: {
-		type: String
+	type: String
     },
     Post: {
-		type: String
+	type: String
     }
   },
   { timestamps: true }
