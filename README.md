@@ -11,6 +11,7 @@ User registry and authentication / terms and conditions agreement / create a new
 
 # thanks to
 androidneha for the admin panel https://github.com/androidneha/mern-admin-panel
+
 Jason Watmor for the pagination feature https://jasonwatmore.com/post/2017/03/14/react-pagination-example-with-logic-like-google
 
 ![ex3](https://user-images.githubusercontent.com/56236726/95639529-a57b1a80-0a4d-11eb-9037-b3da700cfe81.jpg)
