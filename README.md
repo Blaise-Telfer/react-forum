@@ -4,7 +4,7 @@ Perform "npm install" on the main and Client folders, then run "npm run dev" to 
 # built with
 Backend: NodeJs, ExpressJs, MongoDB, Mongoose
 
-Frontend: React, JS, Bootstrap, HTML / CSS
+Frontend: React, Javascript, Bootstrap, HTML / CSS
 
 # features
 User registry and authentication / terms and conditions agreement / create a new post / search other users' post by cateogry, username and location / upload a profile pic and resume with Cloudinary / make a profile and update it at anytime / bookmark your favorite posts
