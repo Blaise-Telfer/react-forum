@@ -13,9 +13,9 @@ const validateLoginInput = require("../controllers/validateLogin");
 //cloudinary configuration 
 const cloudinary = require("cloudinary");
 cloudinary.config({
-  cloud_name: "dgs9kwwvq",
-  api_key: "756952434161266",
-  api_secret: "bLajHMp8E_GgMNX7EI3f89alJhw"
+  cloud_name: "",
+  api_key: "",
+  api_secret: ""
 });
 
 
