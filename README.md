@@ -8,13 +8,13 @@ Frontend: React, Javascript, Bootstrap, HTML / CSS
 
 # features
 * User registry and authentication 
-* terms and conditions agreement 
-* create a new post 
-* search other users' post by cateogry, username and location 
-* upload a profile pic and resume with Cloudinary 
-* make a profile and update it at anytime 
-* bookmark your favorite posts 
-* pagination
+* Terms and conditions agreement 
+* Create and edit posts
+* Search other users' post by cateogry, username and location 
+* Upload a profile pic and resume with Cloudinary 
+* Make a profile and update it at anytime 
+* Bookmark your favorite posts 
+* Pagination
 
 # thanks to
 androidneha for the admin panel https://github.com/androidneha/mern-admin-panel
