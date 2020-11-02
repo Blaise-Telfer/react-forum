@@ -1,0 +1,584 @@
+/*universal css*/
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+html, body{
+	height: 100%;
+	width: 100%;
+	outline: none;
+	scroll-behavior: smooth;
+	background: #f3f1f2;
+	font-family: 'Ubuntu', sans-serif;
+}
+p{
+	margin: 0;
+}
+
+/*Bootstrap modifications*/
+button{
+	background: #0095f6;
+	color: #fff;
+	margin: 10px;
+	border: none;
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary{
+	background: #0057b4 !important;
+	border-color: #0057b4 !important;
+}
+button a{
+	color: #fff;
+}
+button a:hover{
+	color: #333;
+}
+label{
+	margin: 10px 0 5px 0;
+}
+.row{
+	margin: 0 !important;
+}
+.auth-button{
+	width: 75%;
+}
+.cancel-button{
+	border: solid 2px #e3e3e3;
+	background: #fff;
+	color: #333;
+}
+.icon-button{
+	background: transparent;
+	padding: 0;
+	color: #0057b4;
+}
+
+
+/*Loader*/
+.load-icon{
+	height: 250px;
+	width: 250px;
+	margin: 75px auto;
+}
+.load-icon img{
+	height: 250px;
+	width: 250px;
+}
+
+
+/* Navbar */
+.navbar{
+	background: #0057b4;
+	font-size: 20px;
+	margin: 0 !important;
+}
+.navbar-brand{
+	font-size: 25px !important;
+	font-family: 'Russo One', sans-serif;
+}
+
+
+/*landing page*/
+.landing-page{
+	text-align: center;
+	width: 75%;
+	background: #fff;
+	border: #e3e3e3 solid 3px;
+	padding: 75px 25px;
+	margin: 50px auto;
+}
+.landing-page h1{
+	font-family: 'Russo One', sans-serif;
+}
+.description{
+	
+	margin: auto;
+	font-size: 20px;
+	padding: 15px;
+}
+
+
+/*registration page*/
+.agreement, #terms{
+	margin: 10px 0;
+}
+.agreement input{
+	width: auto !important;
+	height: auto !important;
+}
+.red-text{
+	color: red;
+}
+.register-container, .register-form{
+	text-align: center;
+}
+.register-container{
+	width: 75%;
+	background: #fff;
+	border: #e3e3e3 solid 3px;
+	padding: 75px 25px;
+	margin: 50px auto;
+}
+.register-form input{
+	width: 75%;
+	height: 40px;
+	margin: 10px;
+}
+
+
+/*login page*/
+.login-container, .login-form{
+	text-align: center;
+}
+.login-container{
+	width: 75%;
+	background: #fff;
+	border: #e3e3e3 solid 3px;
+	padding: 100px 25px;
+	margin: 50px auto;
+}
+.login-form input{
+	width: 75%;
+	height: 40px;
+	margin: 10px;
+}
+
+
+/*forgot page*/
+.forgot-container, .forgot-form{
+	text-align: center;
+}
+.forgot-container{
+	width: 75%;
+	background: #fff;
+	border: #e3e3e3 solid 3px;
+	padding: 100px 25px;
+	margin: 50px auto;
+}
+.forgot-form input{
+	width: 75%;
+	height: 40px;
+	margin: 10px;
+}
+
+
+/*reset page*/
+.reset-container, .reset-form{
+	text-align: center;
+}
+.reset-container{
+	width: 75%;
+	background: #fff;
+	border: #e3e3e3 solid 3px;
+	padding: 100px 25px;
+	margin: 50px auto;
+}
+.reset-form input{
+	width: 75%;
+	height: 40px;
+	margin: 10px;
+}
+
+
+
+/*register accordion*/
+.accordion__section {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color: #e3e3e3;
+  margin: 0 !important;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+  transition: background-color 0.6s ease;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.accordion:hover,
+.active {
+  background-color: #ccc;
+}
+
+/* Style the accordion content title */
+.accordion__title {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0 !important;
+}
+
+/* Style the accordion chevron icon */
+.accordion__icon {
+  margin-left: auto;
+  transition: transform 0.6s ease;
+}
+
+/* Style to rotate icon when state is active */
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* Style the accordion content panel. Note: hidden by default */
+.accordion__content {
+  background-color: white;
+  overflow: hidden;
+  transition: max-height 0.6s ease;
+  
+}
+
+/* Style the accordion content text */
+.accordion__text {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 18px;
+}
+
+
+
+
+
+/*Dashboard Main Page*/
+.welcome{
+	text-align: center;
+	margin: 10px 0;
+	padding: 10px;
+}
+.welcome h1{
+	font-family: 'Russo One', sans-serif;
+}
+.dashboard-container{
+	min-height: 1100px;
+	width: 90%;
+	margin: auto;
+	padding: 10px;
+}
+.dashboard-container h1{
+	text-align: center;
+	font-family: 'Russo One', sans-serif;
+}
+
+.jobs-container{
+	border: #e3e3e3 solid 3px;
+	
+}
+.search-filters{
+	font-size: 18px;
+	border: #e3e3e3 solid 2px;
+}
+.list-item{
+	padding: 5px;
+	cursor: pointer;
+}
+.list-item-active{
+	background: #e3e3e3;
+}
+.pagination-squares{
+	list-style: none;
+	display: flex;
+	justify-content: center;
+}
+.page-item{
+	
+}
+.searchbar{
+	text-align: center;
+	margin: 15px auto;
+}
+.searchbar input{
+	width: 50%;
+	height: 40px;
+}
+
+
+/*single post page*/
+.individual-post{
+	width: 75%;
+	border: #e3e3e3 solid 3px;
+	margin: 10px auto;
+	text-align: center;
+}
+.body{
+	font-size: 20px;
+	padding: 10px 50px;
+	font-family: 'Arial', sans-serif;
+}
+.individual-post h2{
+	font-family: 'Russo One', sans-serif;
+}
+.individual-page{
+	text-align: center;
+}
+
+
+/*Admin Data Table*/
+th.sortable {
+    color: #2196F3;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+    background-size: 16px;
+}
+.as-react-table .input-group-text:empty{
+    display: none;
+}
+.asrt-page-length{
+    display: inline-block;
+}
+.asrt-page-length .input-group-addon{
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: none;
+}
+.asrt-pagination {
+    margin: 0;
+}
+
+
+/*React Quill box*/
+.new-post{
+	width: 75%;
+	background: #fff;
+	border: #e3e3e3 solid 3px;
+	padding: 50px 25px;
+	margin: 50px auto;
+	text-align: center;
+}
+.new-post input{
+	width: 75%;
+	height: 40px;
+	margin: 10px;
+}
+.quill{
+	width: 75%;
+	margin: 15px auto;
+	border: #e3e3e3 solid 3px;
+}
+.ql-container{
+	min-height: 250px;
+	font-size: 20px;
+}
+.ql-toolbar{
+	padding: 0 !important;
+}
+.new-post select{
+	width: 75%;
+	height: 30px;
+	margin: 20px auto;
+}
+.postFormLabel{
+	text-align: left;
+	font-size: 20px;
+}
+
+
+/*Profile Page*/
+.profile-header{
+	padding: 10px;
+	margin: 20px;
+}
+.profile-header h3{
+	font-size: 24px;
+}
+.profile-info{
+	padding: 15px;
+	text-align: center;
+}
+
+.profile-pic{
+	text-align: center;
+	margin: 10px;
+}
+.profile-pic h2{
+	font-family: 'Russo One', sans-serif;
+	font-size: 40px;
+}
+.profile-pic img{
+	height: 250px;
+	width: 250px;
+	margin: auto;
+	border-radius: 50%;
+}
+.profile-about{
+	margin: 10px;
+	padding: 25px;
+}
+.email{
+	font-size: 24px;
+}
+.profile-name{
+	display: flex;
+	align-items: center;
+}
+.profile-name i{
+	font-size: 40px;
+	margin: 0 15px;
+}
+.profile-resume{
+	padding: 20px 0;
+}
+.profile-resume img{
+	height: 75px;
+	width: 75px;
+}
+.contact{
+	margin: auto;
+	width: 50%;
+	text-align: center;
+}
+.contact a{
+	font-size: 24px;
+}
+
+
+/*posts & favorites tabs*/
+.nav-tabs{
+	margin: auto;
+	justify-content: center;
+	font-size: 20px;
+}
+.personal-posts, .personal-favorites{
+	width: 50%;
+	margin: 25px auto;
+}
+.personal-posts h2, .personal-favorites h2{
+	font-family: 'Russo One', sans-serif;
+	font-size: 24px;
+	text-align: center;
+}
+.single-post, .single-favorite{
+	background: #fff;
+	border: #e3e3e3 solid 2px;
+	margin: 10px 0;
+	padding: 20px 30px;
+}
+.single-favorite{
+	
+}
+
+.text-primary{
+	font-size: 25px;
+}
+.fav-num{
+	font-size: 20px;
+}
+
+
+/*Profile Editor*/
+.profile-editor{
+	text-align: center;
+	width: 75%;
+	background: #fff;
+	border: #e3e3e3 solid 3px;
+	padding: 50px 25px;
+	margin: 50px auto;
+}
+.profile-editor input{
+	width: 75%;
+	height: 40px;
+	margin: 10px auto;
+	text-align: center;
+}
+.pic-editor img{
+	height: 100px;
+	width: 100px;
+	border: #333 solid 2px;
+}
+
+
+
+/*settings page*/
+.settings{
+	text-align: center;
+}
+
+
+
+/*media queries*/
+@media(max-width: 767px){
+	.mobile-hr{
+		width: 100%;
+		border: 1px solid #e3e3e3;
+	}
+	.profile-pic{
+		display: flex;
+	}
+	.profile-pic img{
+		margin: 0;
+	}
+	.profile-info{
+		padding: 0;
+		margin: 0 40px;
+	}
+	.profile-info i{
+		text-align: left;
+	}
+	.profile-info h3{
+		margin: 20px 0;
+	}
+	.profile-about{
+		text-align: center;
+		padding: 0 25px;
+		margin: 15px 0;
+	}
+	.profile-name{
+		justify-content: center;
+	}
+	.profile-name i{
+		font-size: 30px;
+	}
+	
+}
+
+@media(max-width: 575px){
+	.search-filters{
+		display: flex;
+		justify-content: center;
+		font-size: 15px;
+		flex-wrap: wrap;
+	}
+	.list-item{
+		padding: 5px 10px;
+	}
+	.searchbar input{
+		width: 75%;
+	}
+	.profile-pic img{
+		height: 150px;
+		width: 150px;
+	}
+	.profile-info{
+		margin: 0 10px;
+	}
+	.profile-info a{
+		font-size: 12px;
+	}
+	.profile-info h3{
+		margin: 5px 0;
+	}
+	.contact a{
+		font-size: 18px;
+	}
+	
+}
+
