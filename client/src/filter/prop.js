@@ -163,28 +163,33 @@ class PropTester extends React.Component {
 		
 		return (
             <div className="row">
-				<div className="col-sm-3">
+				<div className="col-md-3">
+					Category
 					<ListGroup
 						active={currentCategory}
 						onChange={(val) => this.handleChange("currentCategory", val)}
 						options={categories}
 						onPageChange={this.onPageChange}
 					/>
-					<ListGroup2
-						active={currentAuthor}
-						onChange={(val) => this.handleChange("currentAuthor", val)}
-						options={authors}
-						onPageChange={this.onPageChange}
-					/>
+					
+					City
 					<ListGroup3
 						active={currentCity}
 						onChange={(val) => this.handleChange("currentCity", val)}
 						options={cities}
 						onPageChange={this.onPageChange}
 					/>
+					
+					User
+					<ListGroup2
+						active={currentAuthor}
+						onChange={(val) => this.handleChange("currentAuthor", val)}
+						options={authors}
+						onPageChange={this.onPageChange}
+					/>
 				</div>
 					
-				<div className="col-sm-8 jobs-container">
+				<div className="col-md-8 jobs-container">
 				  <Pagination
 					itemsCount={filteredPosts.length}
 					pageSize={pageSize}
