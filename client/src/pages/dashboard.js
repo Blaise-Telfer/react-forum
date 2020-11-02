@@ -66,6 +66,7 @@ class Dashboard extends Component{
 	render(){
 		const { user } = this.props.auth;
 		const yesAdmin = this.props.auth.user.role == "admin";
+		const loggedIn = this.props.auth.isAuthenticated == true;
 		const {loading, posts, currentPage, postsPerPage, filteredPosts, authors, categories, cities} = this.state;
 		console.log(this.props);
 		
@@ -73,11 +74,19 @@ class Dashboard extends Component{
 			<div className="App">
 				
 				<div className="welcome">
-					<h1>Hello, {user.username}</h1>
-					<h2>Welcome to Teach Meet</h2>
-					
-					<Link to={`/account/${user.username}`}><button>Your Profile</button></Link>
-					<Link to="/newPost"><button>New Post</button></Link>
+					{loggedIn ? 
+						 <div>
+						   <h1>Hello, {user.username}</h1>
+						   <h2>Welcome to Teach Meet</h2>
+						   <Link to={`/account/${user.username}`}><button>Your Profile</button></Link>
+						   <Link to="/newPost"><button>New Post</button></Link>
+						 </div>
+						 : 
+						 <div>
+						   <h1>Hello, guest</h1>
+						   <h2>Create an account if you wish to post and explore further</h2>
+						 </div>
+					}
 					
 					{yesAdmin ? 
 						 (<Link to={`/profile`}><button>Admin Board</button></Link>) 

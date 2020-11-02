@@ -19,6 +19,8 @@ class Landing extends Component{
 				<h1>Welcome to Teach Meet</h1>
 				<Link to="/login"><button> Login </button></Link>
 				<Link to="/register"><button> Register </button></Link>
+				<br/>
+				<a href="/dashboard">Or check out our dashboard first!</a>
 				
 				<div className="description">
 					<p>A forum for teachers, tutors and students alike!</p>
