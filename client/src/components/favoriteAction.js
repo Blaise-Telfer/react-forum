@@ -68,21 +68,22 @@ function FavoriteAction({postInfo, postId, userFrom}){
 	}, []);
 	
 	return(
-		<div className="App">
+		<div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
 			
 			{!Favorited ? 
-				(<button onClick={onClickFavorite}>
+				(<button onClick={onClickFavorite} className="icon-button">
 					{" "}
 					<FontAwesomeIcon className="text-primary" icon={faBookmark}/>
 				</button>) 
 			: 
-				(<button onClick={onClickRemove}>
+				(<button onClick={onClickRemove} className="icon-button">
 					{" "}
 					<FontAwesomeIcon className="text-primary" icon={solidFaBookmark}/>
 				</button>)
 			}
-			{FavoriteNumber}
-			
+			<div className="fav-num">
+				{FavoriteNumber}
+			</div>
 		</div>
 	);
 }

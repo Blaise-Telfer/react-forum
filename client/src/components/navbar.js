@@ -30,7 +30,10 @@ class Navbar extends Component{
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-3" aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent-3">
+                
+				{this.props.auth.isAuthenticated ?
+				(
+				<div class="collapse navbar-collapse" id="navbarSupportedContent-3">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="/dashboard">Home<span class="sr-only">(current)</span></a>
@@ -40,23 +43,30 @@ class Navbar extends Component{
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto nav-flex-icons">
-					
-						{this.props.auth.isAuthenticated ?
-						( <li class="nav-item dropdown">
+						<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> 
                                 </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-unique" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" onClick={this.onLogoutClick}>Logout</a>
                             </div>
-                        </li> )
-						:
-						( <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li> )
-						}
-						
+                        </li>
                     </ul>
                 </div>
+				)
+				:
+				(
+				<div class="collapse navbar-collapse" id="navbarSupportedContent-3">
+                    <ul class="navbar-nav ml-auto nav-flex-icons">
+						<li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+						<li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                    </ul>
+                </div>
+				)
+				}
             </nav>
 		);
 	}

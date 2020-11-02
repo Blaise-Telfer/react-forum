@@ -142,7 +142,7 @@ class Users extends Component {
 
     deleteRecord(record) {
 		axios
-            .post(`/api/users/delete`, {username: record.username})
+            .post(`/api/auth/delete`, {username: record.username})
             .then(res => {
                 if (res.status === 200) {
                    toast(res.data.message, {
