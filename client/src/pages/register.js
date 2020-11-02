@@ -51,32 +51,20 @@ class Register extends Component{
 		this.props.registerUser(newUser, this.props.history);
 	};
 	
-	handleSubmit = e => {
-		console.log("Trying to submit");
-		e.preventDefault();
-	};
-	
 	
 	render(){
 		const { errors } = this.state;
 		
 		return(
-			<div className="registration">
+			<div className="register-container">
 				
 				<div>
-				  <h4>
-					<b>Register</b> below
-				  </h4>
-				  <p className="grey-text text-darken-1">
-					Already have an account? <Link to="/login">Log in</Link>
-				  </p>
+				  <h1>Sign Up</h1>
 				</div>
 				
-				<form onSubmit={this.onSubmit} className="registry">
+				<form onSubmit={this.onSubmit} className="register-form">
 				  
-				  <div className="input-field col s12">
-					<label htmlFor="firstname">First Name</label>
-					<br/>
+				  <div>
 					<input
 					  placeholder="First Name"
 					  onChange={this.onChange}
@@ -84,7 +72,7 @@ class Register extends Component{
 					  error={errors.firstname}
 					  id="firstname"
 					  type="text"
-					  className={classnames("", {
+					  className={classnames("register-input", {
 						invalid: errors.firstname
 					  })}
 					/>
@@ -92,9 +80,7 @@ class Register extends Component{
 					<span className="red-text">{errors.firstname}</span>
 				  </div>
 				  
-				  <div className="input-field col s12">
-					<label htmlFor="lastname">Last Name</label>
-					<br/>
+				  <div>
 					<input
 					  placeholder="Last Name"
 					  onChange={this.onChange}
@@ -102,7 +88,7 @@ class Register extends Component{
 					  error={errors.lastname}
 					  id="lastname"
 					  type="text"
-					  className={classnames("", {
+					  className={classnames("register-input", {
 						invalid: errors.lastname
 					  })}
 					/>
@@ -110,9 +96,7 @@ class Register extends Component{
 					<span className="red-text">{errors.lastname}</span>
 				  </div>
 				  
-				  <div className="input-field col s12">
-					<label htmlFor="username">Username</label>
-					<br/>
+				  <div>
 					<input
 					  placeholder="Username"
 					  onChange={this.onChange}
@@ -120,7 +104,7 @@ class Register extends Component{
 					  error={errors.username}
 					  id="username"
 					  type="text"
-					  className={classnames("", {
+					  className={classnames("register-input", {
 						invalid: errors.username
 					  })}
 					/>
@@ -128,9 +112,7 @@ class Register extends Component{
 					<span className="red-text">{errors.username}</span>
 				  </div>
 				  
-				  <div className="input-field col s12">
-					<label htmlFor="email">Email</label>
-					<br/>
+				  <div>
 					<input
 					  placeholder="Email"
 					  onChange={this.onChange}
@@ -138,7 +120,7 @@ class Register extends Component{
 					  error={errors.email}
 					  id="email"
 					  type="email"
-					  className={classnames("", {
+					  className={classnames("register-input", {
 						invalid: errors.email
 					  })}
 					/>
@@ -146,9 +128,7 @@ class Register extends Component{
 					<span className="red-text">{errors.email}</span>
 				  </div>
 				  
-				  <div className="input-field col s12">
-					<label htmlFor="location">Your Location</label>
-					<br/>
+				  <div>
 					<input
 					  placeholder="City"
 					  onChange={this.onChange}
@@ -156,7 +136,7 @@ class Register extends Component{
 					  error={errors.location}
 					  id="location"
 					  type="text"
-					  className={classnames("", {
+					  className={classnames("register-input", {
 						invalid: errors.location
 					  })}
 					/>
@@ -164,9 +144,7 @@ class Register extends Component{
 					<span className="red-text">{errors.location}</span>
 				  </div>
 				  
-				  <div className="input-field col s12">
-					<label htmlFor="password">Password</label>
-					<br/>
+				  <div>
 					<input
 					  placeholder="Password"
 					  onChange={this.onChange}
@@ -174,7 +152,7 @@ class Register extends Component{
 					  error={errors.password}
 					  id="password"
 					  type="password"
-					  className={classnames("", {
+					  className={classnames("register-input", {
 						invalid: errors.password
 					  })}
 					/>
@@ -182,9 +160,7 @@ class Register extends Component{
 					<span className="red-text">{errors.password}</span>
 				  </div>
 				  
-				  <div className="input-field col s12">
-					<label htmlFor="confirmPassword">Confirm Password</label>
-					<br/>
+				  <div>
 					<input
 					  placeholder="Confirm Password"
 					  onChange={this.onChange}
@@ -192,7 +168,7 @@ class Register extends Component{
 					  error={errors.confirmPassword}
 					  id="confirmPassword"
 					  type="password"
-					  className={classnames("", {
+					  className={classnames("register-input", {
 						invalid: errors.confirmPassword
 					  })}
 					/>
@@ -200,16 +176,17 @@ class Register extends Component{
 					<span className="red-text">{errors.confirmPassword}</span>
 				  </div>
 				  
-				<div className="agreement">
-					  <a href="#terms">Please read our Terms and Conditions</a>
-					  <br/>
+				  <div className="agreement">
 					  <input type="checkbox" required />
-					  <a> I agree to the Terms and Conditions</a>
-				</div>
+					  <a href="#terms">Accept Terms & Conditions</a>
+				  </div>
 				  
-				<button className="btn btn-primary" type="submit">
+				  <button type="submit" className="auth-button">
 					Sign up
-				</button>
+				  </button>
+				  
+				  <p>Already have an account?</p>
+				  <Link to="/login">Sign In</Link>
 				  
 				</form>
 				

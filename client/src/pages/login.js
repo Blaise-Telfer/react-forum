@@ -45,27 +45,22 @@ class Login extends Component{
 			password: this.state.password
 		};
 		this.props.loginUser(userData);
+		
 	};
 	
 	render(){
 		const { errors } = this.state;
 		
 		return(
-			<div className="login">
+			<div className="login-container">
 				
-				<div className="col s12" style={{ paddingLeft: "11.250px" }}>
-				  <h4>
-					<b>Login</b> below
-				  </h4>
-				  <p className="grey-text text-darken-1">
-					Don't have an account? <Link to="/register">Register</Link>
-				  </p>
+				<div>
+				  <h1>Sign In</h1>
 				</div>
 				
 				<form onSubmit={this.onSubmit} className="login-form">
-				  <div className="input-field col s12">
-					<label htmlFor="email">Email</label>
-					<br/>
+				  
+				  <div >
 					<input
 					  placeholder="Email"
 					  onChange={this.onChange}
@@ -74,19 +69,18 @@ class Login extends Component{
 					  id="email"
 					  type="email"
 					  className={classnames("", {
-						invalid: errors.email || errors.emailnotfound
+						invalid: errors.email || errors.emailnotfound || errors.notActivated
 					  })}
 					/>
 					<br/>
 					<span className="red-text">
 					  {errors.email}
 					  {errors.emailnotfound}
+					  {errors.notActivated}
 					</span>
 				  </div>
 				  
-				  <div className="input-field col s12">
-					<label htmlFor="password">Password</label>
-					<br/>
+				  <div >
 					<input
 					  placeholder="Password"
 					  onChange={this.onChange}
@@ -105,9 +99,16 @@ class Login extends Component{
 					</span>
 				  </div>
 				  
-				  <button className="btn btn-primary" type="submit">
-						Login
+				  <button type="submit" className="auth-button">
+					Login
 				  </button>
+				  
+				  <div>
+					<p>Don't have an account yet?</p>
+					<Link to="/register">Sign Up</Link>
+					<br/>
+					<Link to="/forgot-password">Forgot Password?</Link>
+				  </div>
 				  
 				</form>
 			</div>
@@ -125,5 +126,6 @@ const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
 });
+
 
 export default connect(mapStateToProps, { loginUser })(Login);

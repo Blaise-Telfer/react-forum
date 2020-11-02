@@ -18,7 +18,7 @@ class Settings extends Component{
 	
 	onDeleteClick() {
 		const currentUser = this.props.auth.user.username;
-		axios.post(`/api/users/delete`, {username: currentUser} )
+		axios.post(`/api/auth/delete`, {username: currentUser} )
 		.then(res => {this.props.logoutUser()} 
 		)
 		.catch(err => {

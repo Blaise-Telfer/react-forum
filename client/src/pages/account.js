@@ -36,7 +36,6 @@ class Account extends Component{
                 loading: false,
 				user: res.data.user
             })
-			console.log(res.data.user);
 		});
 		
 		axios.get(`/api/users/${accountName}`).then(res => {
@@ -59,28 +58,24 @@ class Account extends Component{
 			beingEdit: true
 		});
 	}
-	renderUpdateButton() {
-		return (
-			<div>
-				<button className="btn btn-primary mr-1" onClick={this.onEditClick.bind(this)}>Edit Profile</button>
-				<button className="btn btn-primary"><Link to="/newPost">Make new post</Link></button>
-			</div>
-		);
-	}
+	
 	
 	render(){
 		const accountName = this.props.match.params.username;
 		const currentUser = this.props.auth.user.username;
 		const notUser = this.props.match.params.username !== this.props.auth.user.username;
+		const picFalse = this.state.user.photo === "https://aeealberta.org/wp-content/uploads/2018/10/profile.png";
 		const resumeFalse = this.state.user.resume === "";
 		const bioFalse = this.state.user.bio === "";
 		const { user, posts, favorite, loading } = this.state;
 		const username = user.username;
+		const postNum = posts.length;
+		const favNum = favorite.length;
 		
 		if (this.state.beingEdit) {
 			return (
 				<EditProfile 
-					userFrom = {username}
+					userFrom = {currentUser}
 					firstname = {user.firstname}
 					lastname = {user.lastname}
 					img = {user.photo}
@@ -99,63 +94,100 @@ class Account extends Component{
 			:
 			(<div>
 				
-				{notUser ? 
-					(null)
-					: 
-					(<div className="profile-header">
-						<p>Upload your profile picture and resume, and fill out your bio, here</p>
-						<button className="btn btn-primary" onClick={this.onEditClick.bind(this)}>Edit Profile</button>
-						<button className="btn btn-primary"><Link to="/newPost">Make new post</Link></button>
-						<button className="btn btn-primary"><Link to={`/settings/${currentUser}`}>Settings</Link></button>
-					</div>)
-				}
-				<hr/>
-				
-				<div className="row profile-info">
+				<div className="row profile-header">
 					
-					<div className="col-sm profile-about">
-						<h3>About Me</h3>
-						<p>{"Member since " + (new Date(user.date)).toDateString() }</p>
-						<p>{"City: " + (user.location)}</p>
+					<div className="col-md-4 profile-pic">
+						<img src={user.photo} />
+						
+						<div className="profile-info">
+							{notUser ? 
+								( null )
+								: 
+								(<div>
+									{(picFalse || resumeFalse || bioFalse) ?
+									(<div>
+										<Link onClick={this.onEditClick.bind(this)}>
+											Your profile is incomplete. Edit it here to add your picture, resume and bio section.
+										</Link>
+									</div>)
+									:
+									( null )
+									}
+								</div>)
+							}
+							
+							<h3>{postNum} {postNum === 1 ? "Post" : "Posts"}</h3>
+							<hr/>
+							<h3>{favNum} {favNum === 1 ? "Favorite" : "Favorites"}</h3>
+							<hr/>
+							
+						</div>
+					</div>
+					
+					<hr className="mobile-hr" />
+					
+					<div className="col-md-7 profile-about">
+						<div className="profile-name">
+							<h1>{username}</h1>
+							{notUser ? 
+								( null )
+								: 
+								(<div>
+									<button onClick={this.onEditClick.bind(this)} className="icon-button">
+										<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+									</button>
+									<Link to={`/settings/${currentUser}`}>
+										<button className="icon-button"><i class="fa fa-cog"></i></button>
+									</Link>
+								</div>)
+							}
+						</div>
+						
+						<a href={`mailto:${user.email}?subject=Teachmeet`} className="email">{user.email}</a>
+						<p>{user.location}</p>
+						<p>{"Joined " + (new Date(user.date)).toDateString() }</p>
+						
 						{bioFalse ?
 						(<p>(This user hasn't filled out their bio)</p>)
 						:
 						(<p>{user.bio}</p>)
 						}
+						
+						<div className="profile-resume">
+							{resumeFalse ? 
+								(<p>(This user hasn't uploaded their resume)</p>) 
+								: 
+								(<div>
+									<img src={pdfFile} />
+									<br/>
+									<a href={`${user.resume}`} > Download {`${username}'s Resume`}</a>
+								</div>)
+							}
+						</div>
+						
 					</div>
-					
-					<div className="col-sm profile-pic">
-						<h3>{username}</h3>
-						<img src={user.photo} />
-					</div>
-					
-					<div className="col-sm profile-resume">
-						<h3>{username}'s Resume</h3>
-						{resumeFalse ? 
-							(<p>(This user hasn't uploaded their resume)</p>) 
-							: 
-							(<div>
-								<img src={pdfFile} />
-								<br/>
-								<a href={`${user.resume}`} >Download {`${username}'s Resume`}</a>
-							</div>)
-						}
-					</div>
-					
 				</div>
+				
+				<hr className="mobile-hr" />
 				
 				<div className="contact">
-					<h3>Contact this user at</h3>
-					<a href={`mailto:${user.email}?subject=Teachmeet`} >{user.email}</a>
+					<Link to="/newPost"><button>New Post</button></Link>
 				</div>
-				<hr/>
 				
-				<section className="row">
-					<div className="personal-posts col-sm-6">
-						<h2>{username}'s Posts</h2>
+				<ul className="nav nav-tabs">
+					<li className="nav-item">
+						<a href="#posts" className="nav-link active" data-toggle="tab">Posts</a>
+					</li>
+					<li className="nav-item">
+						<a href="#favorites" className="nav-link" data-toggle="tab">Favorites</a>
+					</li>
+				</ul>
+				
+				<div className="tab-content">
+					<div className="tab-pane fade show active personal-posts" id="posts">
 						{posts.map((post) => {
 							return (
-								<div style={{border:"3px solid #e3e3e3", padding:"10px"}}>
+								<div className="single-post">
 									<p><Link to={`/post/${post._id}`}>{post.title}</Link></p>
 									<p>{post.author}</p>
 									<p>{post.category}</p>
@@ -168,17 +200,15 @@ class Account extends Component{
 						})}
 					</div>
 					
-					<div className="personal-favorites col-sm-6">
+					<div className="tab-pane fade personal-favorites" id="favorites">
 						{notUser ? 
 							(null)
 							: 
 							(<div>
-								<h2>Your Favorites</h2>
 								{favorite.map((fav) => {
 									return (
-										<div style={{border:"3px solid #e3e3e3", padding:"10px"}}>
+										<div className="single-favorite">
 											<p><Link to={`/post/${fav.postId}`}>{fav.postTitle}</Link></p>
-											<p>{fav.postId}</p>
 											
 											<FavoriteAction
 												postInfo={fav}
@@ -193,7 +223,7 @@ class Account extends Component{
 							</div>)
 						}
 					</div>
-				</section>
+				</div>
 				
 				</div>
 			)}	

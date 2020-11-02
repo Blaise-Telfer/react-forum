@@ -77,7 +77,7 @@ class EditPost extends Component{
                     <br />
                     <br />
                     <div className="flex-row">
-                        <button type="submit" className="btn btn-elegant btn-sm">Submit</button>
+                        <button type="submit">Update</button>
                     </div>
                 </form>
             </div>

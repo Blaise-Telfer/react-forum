@@ -37,7 +37,10 @@ class EditProfile extends Component{
 			city: this.props.city,
 			bio: this.props.bio
         });
+		
+		
     }
+	
 	
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.errors) {
@@ -130,47 +133,61 @@ class EditProfile extends Component{
 	render(){
 		const { firstname, lastname, photo, city, bio, errors } = this.state;
 		let {imagePreviewUrl} = this.state;
-        let $imagePreview = null;
-		
+        let $imagePreview = this.state.img;
+		console.log(this.props);
+		console.log(this.state);
 		
 		return(
 			<div className="profile-editor">
 				<form onSubmit={this.submitFormOnClick}>
-                    <div className="">
-						<label className='profileFormLabel' htmlFor='firstname'>First Name</label>
-						<input type='text' id='firstname' 
-						className='form-control' name='firstname' 
-						value={firstname} onChange={this.handleChange}
+                    <h2>Personal Info</h2>
+					<div className="">
+						<input 
+						type='text' 
+						id='firstname' 
+						placeholder = "first name"
+						className='form-control' 
+						name='firstname' 
+						value={firstname} 
+						onChange={this.handleChange}
 						/>
                     </div>
 					<div className="">
-						<label className='profileFormLabel' htmlFor='lastname'>Last Name</label>
-						<input type='text' id='lastname' 
-						className='form-control' name='lastname' 
-						value={lastname} onChange={this.handleChange}
+						<input 
+						type='text' 
+						id='lastname' 
+						placeholder = "last name"
+						className='form-control' 
+						name='lastname' 
+						value={lastname} 
+						onChange={this.handleChange}
 						/>
                     </div>
 					<div className=''>
-						<label className='profileFormLabel' htmlFor='city'>Update Your Location</label>
-						<input type='text' id='city' 
-						className='form-control' name='city' 
-						value={city} onChange={this.handleChange}
+						<input 
+						type='text' 
+						id='city' 
+						placeholder = "city"
+						className='form-control' 
+						name='city' 
+						value={city} 
+						onChange={this.handleChange}
 						/>
                     </div>
-					
-					<div className=''>
-						<label className='profileFormLabel' htmlFor='bio'>Bio - tell people about yourself</label>
-						<input type='text' 
+					<div className="">
+						<input 
+						type='text' 
 						id='bio' 
 						className='form-control' 
-						name='bio' 
+						name='bio'						
+						placeholder = "fill your bio here..."
 						value={bio} 
 						onChange={this.handleChange}
 						/>
                     </div>
 					
-                    <div className="flex-row">
-                        <button className="btn btn-primary" type="submit">Submit</button>
+                    <div>
+                        <button type="submit">Update</button>
                     </div>
                 </form>
 				<hr/>
@@ -178,11 +195,16 @@ class EditProfile extends Component{
 				<form onSubmit={this.submitPhotoOnClick} className="pic-editor">
 					Upload new profile pic here! Jpeg and png files only.
 					<br/>
-					<input type="file" onChange={this.handleImageChange} />
+					<input 
+					  type="file" 
+					  onChange={this.handleImageChange} 
+					  error={errors}
+					  className={classnames("", {invalid: errors})}
+					/>
 					<br/>
 					{!$imagePreview && <img src={imagePreviewUrl} />}
 					<br/>
-					<button className="btn btn-primary" type="submit">Submit</button>
+					<button type="submit">Update</button>
 				</form>
 				<hr/>
 				
@@ -190,13 +212,13 @@ class EditProfile extends Component{
 					Upload your resume here! PDF files only.
 					<br/>
 					<input 
-					type="file" 
-						onChange={this.handleResumeChange}					
-						error={errors}
-						className={classnames("", {invalid: errors})}
+					  type="file" 
+					  onChange={this.handleResumeChange}					
+					  error={errors}
+					  className={classnames("", {invalid: errors})}
 					/>
 					<br/>
-					<button className="btn btn-primary" type="submit">Submit</button>
+					<button type="submit">Update</button>
 					
 				</form>
 				

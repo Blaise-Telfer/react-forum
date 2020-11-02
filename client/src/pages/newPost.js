@@ -20,7 +20,7 @@ class NewPost extends Component {
                 title: "",
                 body: "",
                 author: this.props.auth.user.username,
-				email: "",
+				email: this.props.auth.user.email,
 				category: "",
 				salary: "",
 				city: "",
@@ -82,7 +82,7 @@ class NewPost extends Component {
         const newPost = {
 			title: this.state.data.title,
             body: this.state.body,
-			email: this.state.data.email,
+			email: this.props.auth.user.email,
 			category: this.state.data.category,
             salary: this.state.data.salary,
             city: this.state.data.city,
@@ -101,10 +101,9 @@ class NewPost extends Component {
 		return (
 			<div className="new-post">
 			<form onSubmit={this.onSubmit} loading={this.state.loading} >
+				<h2>New Posting</h2>
 				
-				<div className="input-field col s12">
-					<label className='postFormLabel'>Title</label>
-					<br/>
+				<div>
 					<input
 						name="title" 
 						type="text" 
@@ -132,30 +131,9 @@ class NewPost extends Component {
 						invalid: errors.body 
 					})}
 				/>
-				<br/>
 				<span className="red-text">{errors.body}</span>
 				
-				<div className="input-field col s12">
-					<label className='postFormLabel'>Email</label>
-					<br/>
-					<input
-						name="email" 
-						type="email" 
-						placeholder="email"
-						value={input.email}
-						onChange={this.onChange}
-						error={errors.email}
-						className={classnames("", {
-							invalid: errors.email 
-						})}
-					/>
-					<br/>
-					<span className="red-text">{errors.email}</span>
-				</div>
-				
-				<div className="input-field col s12">
-					<label className='postFormLabel'>Salary</label>
-					<br/>
+				<div>
 					<input
 						name="salary" 
 						type="text" 
@@ -171,9 +149,7 @@ class NewPost extends Component {
 					<span className="red-text">{errors.salary}</span>
 				</div>
 				
-				<div className="input-field col s12">
-					<label className='postFormLabel'>City</label>
-					<br/>
+				<div>
 					<input
 						name="city" 
 						type="text" 
@@ -189,7 +165,7 @@ class NewPost extends Component {
 					<span className="red-text">{errors.city}</span>
 				</div>
 				
-				<div className="input-field col s12">
+				<div>
 					<select 
 					className="browser-default"
 					name="category" 
@@ -204,7 +180,7 @@ class NewPost extends Component {
 					<span className="red-text">{errors.category}</span>
 				</div>
 				
-				<button type="submit" className="btn btn-primary"> Create </button>
+				<button type="submit" className="auth-button"> Post </button>
 			</form>
 			</div>
 		);

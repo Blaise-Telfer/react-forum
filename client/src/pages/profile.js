@@ -36,7 +36,6 @@ class Profile extends Component{
     }
 	
 	render(){
-		const notUser = this.props.match.params.username !== this.props.auth.user.username;
 		const yesAdmin = this.props.auth.user.role == "admin";
 		const accountName = this.props.match.params.username;
 		const currentUser = this.props.auth.user.username;
@@ -45,12 +44,6 @@ class Profile extends Component{
 			<div className="App">
 				<h1>{currentUser}'s Profile, Admin Supreme</h1>
 				<h3>You are logged in as {currentUser}</h3>
-				
-				{notUser ? 
-					(<h3>this is someone else's account</h3>) 
-					: 
-					(<h3>this is your account</h3>)
-				}
 				
 				<div className="col-sm-3 p-sm-2">
 					<div className="card bg-primary text-white shadow-lg">

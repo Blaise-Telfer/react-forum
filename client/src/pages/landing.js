@@ -17,10 +17,10 @@ class Landing extends Component{
 		return(
 			<div className="landing-page">
 				<h1>Welcome to Teach Meet</h1>
-				<button className="btn btn-primary"><Link to="/login"> Login </Link></button>
-				<button className="btn btn-primary"><Link to="/register"> Register </Link></button>
+				<Link to="/login"><button> Login </button></Link>
+				<Link to="/register"><button> Register </button></Link>
 				
-				<div class="description">
+				<div className="description">
 					<p>A forum for teachers, tutors and students alike!</p>
 					<p>Find and hire a new teacher for any subject</p>
 					<p>or</p>

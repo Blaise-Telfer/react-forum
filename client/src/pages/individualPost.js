@@ -21,9 +21,8 @@ class IndividualPost extends Component{
 	}
 	
 	componentDidMount(){
-		this.setState({
-			beingEdit: false
-		});
+		this.setState({ beingEdit: false });
+		
 		axios.get(`/api/posts/${this.props.match.params.id}`)
 		.then(res => {
             this.setState({
@@ -54,7 +53,7 @@ class IndividualPost extends Component{
 	renderUpdateAndDeleteButton() {
 		return (
 			<div>
-				<button className="btn btn-primary mr-1" onClick={this.onEditClick.bind(this)}>Edit</button>
+				<button onClick={this.onEditClick.bind(this)}>Edit</button>
 				<button className="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmModal">Delete</button>
 			</div>
 		);
@@ -139,9 +138,6 @@ class IndividualPost extends Component{
 					>
 					</FavoriteAction>
 				</div>
-				
-				<button className="btn btn-primary"><Link to="/dashboard">Home</Link></button>
-				<button className="btn btn-primary"><Link to={`/account/${user.username}`}>Your Profile</Link></button>
 				
 				</div>)}
 			</div>

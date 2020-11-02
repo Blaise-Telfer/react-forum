@@ -67,6 +67,7 @@ class Dashboard extends Component{
 		const { user } = this.props.auth;
 		const yesAdmin = this.props.auth.user.role == "admin";
 		const {loading, posts, currentPage, postsPerPage, filteredPosts, authors, categories, cities} = this.state;
+		console.log(this.props);
 		
 		return(
 			<div className="App">
@@ -75,11 +76,11 @@ class Dashboard extends Component{
 					<h1>Hello, {user.username}</h1>
 					<h2>Welcome to Teach Meet</h2>
 					
-					<button className="btn btn-primary"><Link to={`/account/${user.username}`}>Your Profile</Link></button>
-					<button className="btn btn-primary"><Link to="/newPost">Make new post</Link></button>
+					<Link to={`/account/${user.username}`}><button>Your Profile</button></Link>
+					<Link to="/newPost"><button>New Post</button></Link>
 					
 					{yesAdmin ? 
-						 (<button className="btn btn-primary"><Link to={`/profile`}>Go to admin board</Link></button>) 
+						 (<Link to={`/profile`}><button>Admin Board</button></Link>) 
 						 : 
 						 (null)
 					}
@@ -88,7 +89,7 @@ class Dashboard extends Component{
 				
 				
 				<div className="dashboard-container">
-                    <h1 style={{textAlign:"center"}}>Job Posts</h1>
+                    <h1>Job Posts</h1>
 					
 					<div>
 					{loading ?
@@ -97,10 +98,9 @@ class Dashboard extends Component{
 						(<div>
 						
 						<div className="searchbar">
-							<h3>Search</h3>
 							<input 
 								type="text" 
-								placeholder="Filter" 
+								placeholder="search..." 
 								onInput={this.handleFilter} 
 							/>
 						</div>
