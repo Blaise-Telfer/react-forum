@@ -4,3 +4,4 @@ export const USER_LOADING = "USER_LOADING";
 export const POST_LOADING = "POST_LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const DELETE_POST = "DELETE_POST";
+export const VERIFY_EMAIL_ERROR = "VERIFY_EMAIL_ERROR";

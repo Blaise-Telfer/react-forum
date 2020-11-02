@@ -1,8 +1,8 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./token";
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING, DELETE_POST, GET_POSTS, POST_LOADING } from "./types";
-
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING, DELETE_POST, GET_POSTS, POST_LOADING, VERIFY_EMAIL_ERROR } from "./types";
+import { alertService } from './alertServices';
 
 
 //create post
@@ -21,7 +21,7 @@ export const createPost = (userData, history) => dispatch => {
 //delete their own account
 export const deleteAccount = (currentUser, history) => dispatch => {
   if (window.confirm("Are you sure? This can NOT be undone!")) {
-    axios.delete(`/api/users/${currentUser}`)
+    axios.delete(`/api/auth/${currentUser}`)
       .then(res =>
         dispatch({
           type: SET_CURRENT_USER,
@@ -40,8 +40,64 @@ export const deleteAccount = (currentUser, history) => dispatch => {
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-  axios.post("/api/users/register", userData)
-    .then(res => history.push("/login"))
+  axios.post("/api/auth/register", userData)
+    .then(res => {
+		alertService.success('Registration successful, log in now to get started! Your email should recieve our welcome message.', { keepAfterRouteChange: true });
+		history.push("/login");
+	})
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+
+// verify account
+export const verifyEmail = (userData, history) => async (dispatch) => {
+	axios.post("/api/auth/verify", userData)
+      .then(res => {
+        const { token } = res.data;
+		localStorage.setItem("jwtToken", token);
+		// Set token to Auth header
+        setAuthToken(token);
+        // Decode token to get user data
+        const decoded = jwt_decode(token);
+        // Set current user
+        dispatch(setCurrentUser(decoded));
+		history.push('/dashboard');
+      })
+      .catch(err => dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      }));
+};
+
+
+// password forgot
+export const forgotPassword = (userData, history) => (dispatch) => {
+	axios.post("/api/auth/forgot-password", userData)
+    .then(res => {
+		alertService.success('A reset link has been sent to your email account', { keepAfterRouteChange: true });
+		history.push("/login");
+	})
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+
+// reset password
+export const passwordReset = (userData, history) => (dispatch) => {
+	axios.post("/api/auth/reset-password", userData)
+    .then(res => {
+		alertService.success('Your password has been changed', { keepAfterRouteChange: true });
+		history.push("/login");
+	})
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -53,8 +109,8 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login - get user token
 export const loginUser = (userData) => dispatch => {
-  axios.post("/api/users/login", userData)
-    .then(res => {
+	axios.post("/api/auth/login", userData)
+	.then(res => {
       // Set token to localStorage
       const { token } = res.data;
       localStorage.setItem("jwtToken", token);
@@ -64,14 +120,14 @@ export const loginUser = (userData) => dispatch => {
       const decoded = jwt_decode(token);
       // Set current user
       dispatch(setCurrentUser(decoded));
-    })
+	})
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
+	}));
 };
+
 
 
 //update info
@@ -138,7 +194,4 @@ export const logoutUser = () => dispatch => {
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 };
-
-
-
 
