@@ -37,7 +37,6 @@ class LoginForgot extends Component{
 	};
 	
 	render(){
-		console.log(this.state.email);
 		const { errors } = this.state;
 		
 		return(
