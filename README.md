@@ -1,10 +1,5 @@
 # installation
-Perform "npm install" on the main and Client folders, then run "npm run dev" to launch full development mode. You'll need your own Mongo database URL and JWT key (config/db.js), and Cloudinary keys (routes/usersRoute.js).
-
-# built with
-Backend: NodeJs, ExpressJs, MongoDB, Mongoose
-
-Frontend: React, Javascript, Bootstrap, HTML / CSS
+Perform "npm install" on the main and Client folders, then run "npm run dev" to launch full development mode. Insert your own Mongo database URL, JWT key and SendGrid API into the config/db.js file, and your Cloudinary keys into routes/usersRoute.js.
 
 # features
 * User registry and authentication 
