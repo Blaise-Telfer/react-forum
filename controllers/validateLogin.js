@@ -10,13 +10,13 @@ module.exports = function validateLoginInput(data) {
 
   // Email checks
   if (Validator.isEmpty(data.email)) {
-    errors.email = "Email is required";
+    errors.message = "Email is required";
   } else if (!Validator.isEmail(data.email)) {
-    errors.email = "Email is invalid";
+    errors.message = "Email is invalid";
   }
   // Password checks
   if (Validator.isEmpty(data.password)) {
-    errors.password = "Password is required";
+    errors.message = "Password is required";
   }
 
   return {
@@ -24,4 +24,3 @@ module.exports = function validateLoginInput(data) {
     isValid: isEmpty(errors)
   };
 };
-

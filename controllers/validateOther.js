@@ -9,9 +9,9 @@ module.exports = {
 	  data.email = !isEmpty(data.email) ? data.email : "";
 	  // Email checks
 	  if (Validator.isEmpty(data.email)) {
-		errors.email = "Email is required";
+		errors.message = "Email is required";
 	  } else if (!Validator.isEmail(data.email)) {
-		errors.email = "Email is invalid";
+		errors.message = "Email is invalid";
 	  }
 	  
 	  return {
@@ -28,16 +28,16 @@ module.exports = {
 	  data.confirmPassword = !isEmpty(data.confirmPassword) ? data.confirmPassword : "";
 	  // Password checks
 	  if (Validator.isEmpty(data.password)) {
-		errors.password = "Password is required";
+		errors.message = "Password is required";
 	  }
 	  if (Validator.isEmpty(data.confirmPassword)) {
-		errors.confirmPassword = "Confirm password is required";
+		errors.message = "Confirm password is required";
 	  }
 	  if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-		errors.password = "Password must be at least 6 characters";
+		errors.message = "Password must be at least 6 characters";
 	  }
 	  if (!Validator.equals(data.password, data.confirmPassword)) {
-		errors.confirmPassword = "Passwords must match";
+		errors.message = "Passwords must match";
 	  }
 
 	  return {
