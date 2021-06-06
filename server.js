@@ -31,10 +31,12 @@ app.use(passport.initialize())
 
 //routes
 const auth = require("./routes/authRoute");
+const verify = require("./routes/verificationRoute");
 const user = require("./routes/usersRoute");
 const post = require("./routes/postsRoute");
 const favorite = require("./routes/favoritesRoute");
 app.use("/api/auth", auth);
+app.use("/api/verify", verify);
 app.use("/api/users", user);
 app.use("/api/posts", post);
 app.use("/api/favorites", favorite);
