@@ -53,16 +53,35 @@ const UserSchema = new Schema({
 	date: {
 		type: Date,
 		default: Date.now
+	},
+	verified: {
+	  type: Boolean,
+	  default: false
+	},
+	verifyToken: {
+	  token: String,
+	  expires: Date
+	},
+	resetToken: {
+	  token: String,
+	  expires: Date
 	}
 });
 
 
-// 0c. Virtual property to get posts
-UserSchema.virtual("posts", {
-	ref: "Post",
-	foreignField: "createdBy",
-	localField: "_id",
-});
+function validateEmail(input) {
+  const schema = Joi.object({
+    email: Joi.string().min(5).max(255).required().email(),
+  });
 
+  return schema.validate(input);
+}
+
+function validatePassword(input) {
+  const schema = Joi.object({
+    password: Joi.string().min(5).max(255).required(),
+  });
+  return schema.validate(input);
+}
 
 module.exports = mongoose.model("User", UserSchema);
