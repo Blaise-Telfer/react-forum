@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import classnames from "classnames";
 import { connect } from "react-redux";
-import { forgotPassword } from "../authorization/actions";
-import { alertService } from '../authorization/alertServices';
+import { forgotPassword } from "../authorization/userActions";
+import { Message, Dimmer, Loader } from 'semantic-ui-react';
 
 
 class LoginForgot extends Component{
@@ -12,17 +10,8 @@ class LoginForgot extends Component{
 	constructor() {
 		super();
 		this.state = {
-			email: "",
-			errors: {}
+			email: ""
 		};
-	}
-	
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.errors) {
-			this.setState({
-				errors: nextProps.errors
-			});
-		}
 	}
 	
 	onChange = (e) => {
@@ -37,7 +26,8 @@ class LoginForgot extends Component{
 	};
 	
 	render(){
-		const { errors } = this.state;
+		const { email } = this.state;
+		const { loading, error, message } = this.props.passwordForgot;
 		
 		return(
 			<div className="forgot-container">
@@ -46,25 +36,24 @@ class LoginForgot extends Component{
 				</div>
 				
 				<form onSubmit={this.onSubmit} className="forgot-form">
+				  {loading ? (<Dimmer active inverted size="massive"><Loader inverted>Loading...</Loader></Dimmer>)
+				  : 
+				  message ? <Message className="success-text" content={message.message} />
+				  :
+				  error ? <Message className="error-text" content={error.message} />
+				  : null}
+				  
 				  <div className="input-field col s12">
 					<label htmlFor="email">Enter your email and check you inbox for the reset link</label>
 					<br/>
 					<input
 					  placeholder="Email"
 					  onChange={this.onChange}
-					  value={this.state.email}
-					  error={errors.email}
+					  value={email}
 					  id="email"
 					  type="email"
-					  className={classnames("", {
-						invalid: errors.email || errors.emailnotfound
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">
-					{errors.email}
-					{errors.emailnotfound}
-					</span>
 				  </div>
 				  
 				  <button type="submit">
@@ -78,16 +67,9 @@ class LoginForgot extends Component{
 	}
 }
 
-
-LoginForgot.propTypes = {
-	forgotPassword: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired,
-	errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	auth: state.auth,
-	errors: state.errors
+const mapStateToProps = (state) => ({
+  authInfo: state.authInfo,
+  passwordForgot: state.passwordForgot
 });
 
 export default connect(mapStateToProps, {forgotPassword})(LoginForgot);

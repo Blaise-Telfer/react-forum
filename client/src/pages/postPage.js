@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../authorization/actions";
+import { logoutUser } from "../authorization/userActions";
 import axios from "axios";
 import Loading from "../components/loading";
 
@@ -26,7 +26,6 @@ class PostPage extends Component{
 				posts: res.data.posts.reverse()
             })
         })
-		console.log(this.props)
     }
 	
     sortChange(e, data){
@@ -43,7 +42,6 @@ class PostPage extends Component{
 	
 	render(){
 		const {loading, posts} = this.state;
-		console.log(this.state.posts);
 		
 		return(
 			<div className="App">

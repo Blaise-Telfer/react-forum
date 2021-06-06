@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import classnames from "classnames";
 import { connect } from "react-redux";
-import { passwordReset } from "../authorization/actions";
-import { alertService } from '../authorization/alertServices';
+import { resetPassword } from "../authorization/userActions";
+import { Message, Dimmer, Loader } from 'semantic-ui-react';
 
 
 class PasswordReset extends Component{
@@ -13,17 +11,8 @@ class PasswordReset extends Component{
 		super();
 		this.state = {
 			password: "",
-			confirmPassword: "",
-			errors: {}
+			confirmPassword: ""
 		};
-	}
-	
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.errors) {
-			this.setState({
-			errors: nextProps.errors
-			});
-		}
 	}
 	
 	onChange = e => {
@@ -39,11 +28,12 @@ class PasswordReset extends Component{
 			email: this.props.match.params.email,
 			token: this.props.match.params.token
 		};
-		this.props.passwordReset(newPassword, this.props.history);
+		this.props.resetPassword(newPassword, this.props.history);
 	};
 	
 	render(){
-		const { errors } = this.state;
+		const { password, confirmPassword } = this.state;
+		const { loading, error, message } = this.props.resetPassword;
 		
 		return(
 			<div className="reset-container">
@@ -54,37 +44,33 @@ class PasswordReset extends Component{
 				</div>
 				
 				<form onSubmit={this.onSubmit} className="reset-form">
-				  
+				  {loading ? (<Dimmer active inverted size="massive"><Loader inverted>Loading...</Loader></Dimmer>)
+				  : 
+				  message ? <Message className="success-text" content={message.message} />
+				  :
+				  error ? <Message className="error-text" content={error.message} />
+				  : null}
+			
 				  <div className="input-field col s12">
 					<input
 					  placeholder="Password"
 					  onChange={this.onChange}
-					  value={this.state.password}
-					  error={errors.password}
+					  value={password}
 					  id="password"
 					  type="password"
-					  className={classnames("", {
-						invalid: errors.password
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">{errors.password}</span>
 				  </div>
 				  
 				  <div className="input-field col s12">
 					<input
 					  placeholder="Confirm Password"
 					  onChange={this.onChange}
-					  value={this.state.confirmPassword}
-					  error={errors.confirmPassword}
+					  value={confirmPassword}
 					  id="confirmPassword"
 					  type="password"
-					  className={classnames("", {
-						invalid: errors.confirmPassword
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">{errors.confirmPassword}</span>
 				  </div>
 				  
 				  <button type="submit" className="auth-button">
@@ -93,26 +79,14 @@ class PasswordReset extends Component{
 				  
 				</form>
 				
-				<span className="red-text">
-					{errors.noUser}
-					{errors.usedToken}
-					{errors.noToken}
-					{errors.expired}
-				</span>
 			</div>
 		);
 	}
 }
 
-
-PasswordReset.propTypes = {
-	passwordReset: PropTypes.func.isRequired,
-	errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	auth: state.auth,
-	errors: state.errors
+const mapStateToProps = (state) => ({
+  authInfo: state.authInfo,
+  passwordReset: state.passwordReset
 });
 
-export default connect(mapStateToProps, {passwordReset})(PasswordReset);
+export default connect(mapStateToProps, {resetPassword})(PasswordReset);

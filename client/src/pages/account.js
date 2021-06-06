@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../authorization/actions";
+import { logoutUser } from "../authorization/userActions";
 import FavoriteAction from "../components/favoriteAction";
 import axios from "axios";
 import {AiOutlineEdit as EditIcon} from "react-icons/ai";
@@ -61,9 +61,8 @@ class Account extends Component{
 	
 	
 	render(){
-		const accountName = this.props.match.params.username;
-		const currentUser = this.props.auth.user.username;
-		const notUser = this.props.match.params.username !== this.props.auth.user.username;
+		const currentUser = this.props.authInfo.user.username;
+		const notUser = this.props.match.params.username !== this.props.authInfo.user.username;
 		const picFalse = this.state.user.photo === "https://aeealberta.org/wp-content/uploads/2018/10/profile.png";
 		const resumeFalse = this.state.user.resume === "";
 		const bioFalse = this.state.user.bio === "";
@@ -232,13 +231,8 @@ class Account extends Component{
 	}
 }
 
-Account.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-};
-
 const mapStateToProps = state => ({
-  auth: state.auth
+  authInfo: state.authInfo
 });
 
 export default connect(mapStateToProps, {logoutUser})(Account);

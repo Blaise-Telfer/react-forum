@@ -37,10 +37,7 @@ class EditProfile extends Component{
 			city: this.props.city,
 			bio: this.props.bio
         });
-		
-		
     }
-	
 	
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.errors) {
@@ -74,7 +71,7 @@ class EditProfile extends Component{
 		formData.append("photo", this.state.photo);
 		formData.append("userFrom", this.props.userFrom);
 		
-		axios.post(`/api/users/update/photo`, formData )
+		axios.post(`/api/users/update/photo`, formData)
         .then(response => {
             this.setState({ success: true })
 			window.location.reload()
@@ -91,7 +88,7 @@ class EditProfile extends Component{
 		formData.append("resume", this.state.resume);
 		formData.append("userFrom", this.props.userFrom);
 		
-		axios.post(`/api/users/update/resume`, formData )
+		axios.post(`/api/users/update/resume`, formData)
         .then(response => {
             this.setState({ success: true })
 			window.location.reload()

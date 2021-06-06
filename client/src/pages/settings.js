@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import axios from "axios";
 import { connect } from "react-redux";
-import { logoutUser, deleteAccount } from "../authorization/actions";
+import { logoutUser } from "../authorization/userActions";
+import { deleteAccount } from "../authorization/actions";
 
 
 class Settings extends Component{
@@ -17,13 +18,8 @@ class Settings extends Component{
     }
 	
 	onDeleteClick() {
-		const currentUser = this.props.auth.user.username;
-		axios.post(`/api/auth/delete`, {username: currentUser} )
-		.then(res => {this.props.logoutUser()} 
-		)
-		.catch(err => {
-            console.log(err)
-        })
+		const userID = this.props.authInfo.user.id;
+		this.props.deleteAccount(userID);
 	};
 	
 	onLogoutClick = (e) => {
@@ -32,8 +28,8 @@ class Settings extends Component{
 	};
 	
 	componentDidMount(){
-		const currentUser = this.props.auth.user.username;
-		const notUser = this.props.match.params.username !== this.props.auth.user.username;
+		const currentUser = this.props.authInfo.user.username;
+		const notUser = this.props.match.params.username !== this.props.authInfo.user.username;
 		if(notUser){
 			this.props.history.push(`/account/${currentUser}`)
 		}
@@ -72,9 +68,7 @@ class Settings extends Component{
 	}
 	
 	render(){
-		const notUser = this.props.match.params.username !== this.props.auth.user.username;
-		const currentUser = this.props.match.params.username;
-		console.log(this.props);
+		const notUser = this.props.match.params.username !== this.props.authInfo.user.username;
 		
 		return(
 			<div className="settings">
@@ -100,14 +94,8 @@ class Settings extends Component{
 	}
 }
 
-Settings.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  deleteAccount: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-};
-
 const mapStateToProps = state => ({
-  auth: state.auth
+  authInfo: state.authInfo
 });
 
 export default connect(mapStateToProps, {logoutUser, deleteAccount})(Settings);

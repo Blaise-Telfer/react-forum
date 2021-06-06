@@ -29,7 +29,6 @@ class IndividualPost extends Component{
                 loading: false,
 				post: res.data.post
             })
-			console.log(res)
         });
     }
 	
@@ -84,11 +83,12 @@ class IndividualPost extends Component{
 	}
 
 	render(){
-		const notUser = this.props.auth.user.username !== this.state.post.author;
-		const user = this.props.auth.user;
+		const notUser = this.props.authInfo.user.username !== this.state.post.author;
+		const user = this.props.authInfo.user;
 		const {post, loading} = this.state;
 		const author = post.author;
 		const postId = this.props.match.params.id;
+		console.log(this.props)
 		
 		if (this.state.beingEdit) {
 			return (
@@ -124,7 +124,7 @@ class IndividualPost extends Component{
 					<Link to={`/account/${author}`} ><h3>{post.author}</h3></Link>
 					
 					{post.body && (
-						<div className="body" dangerouslySetInnerHTML={{__html: post.body}}></div>
+						<div className="body" dangerouslySetInnerHTML={ {__html: post.body} } ></div>
 					)}
 					
 					<hr/>
@@ -145,14 +145,8 @@ class IndividualPost extends Component{
 	}
 }
 
-
-
-IndividualPost.propTypes = {
-	auth: PropTypes.object.isRequired
-};
-
 const mapStateToProps = state => ({
-	auth: state.auth
+  authInfo: state.authInfo
 });
 
 export default connect(mapStateToProps)(IndividualPost);

@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import classnames from "classnames";
 import { connect } from "react-redux";
-import { loginUser } from "../authorization/actions";
+import { loginUser } from "../authorization/userActions";
+import { Message, Dimmer, Loader } from 'semantic-ui-react';
 
 
 class Login extends Component{
@@ -12,25 +11,13 @@ class Login extends Component{
 		super();
 		this.state = {
 			email: "",
-			password: "",
-			errors: {}
+			password: ""
 		};
 	}
 	
 	componentDidMount() {
-		if (this.props.auth.isAuthenticated) {
+		if (this.props.authInfo.isAuthenticated) {
 			this.props.history.push("/dashboard");
-		}
-	}
-	
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.auth.isAuthenticated) {
-			this.props.history.push("/dashboard");
-		}
-		if (nextProps.errors) {
-			this.setState({
-				errors: nextProps.errors
-			});
 		}
 	}
 	
@@ -40,16 +27,17 @@ class Login extends Component{
 	
 	onSubmit = e => {
 		e.preventDefault();
-		const userData = {
-			email: this.state.email,
-			password: this.state.password
-		};
-		this.props.loginUser(userData);
-		
+		// create a string for an HTTP body message
+		const email = encodeURIComponent(this.state.email);
+		const password = encodeURIComponent(this.state.password);
+		const formData = `email=${email}&password=${password}`;
+		this.props.loginUser(formData, this.props.history);
 	};
 	
 	render(){
-		const { errors } = this.state;
+		const { errors, email, password } = this.state;
+		const { loading, error } = this.props.authInfo;
+		const { message } = this.props.authRegister;
 		
 		return(
 			<div className="login-container">
@@ -59,44 +47,33 @@ class Login extends Component{
 				</div>
 				
 				<form onSubmit={this.onSubmit} className="login-form">
+				  {loading ? (<Dimmer active inverted size="massive"><Loader inverted>Loading...</Loader></Dimmer>)
+				  : 
+				  message ? <Message className="success-text" content={message.message} />
+				  :
+				  error ? <Message className="error-text" content={error.message} />
+				  : null}
 				  
 				  <div >
 					<input
 					  placeholder="Email"
 					  onChange={this.onChange}
-					  value={this.state.email}
-					  error={errors.email}
+					  value={email}
 					  id="email"
 					  type="email"
-					  className={classnames("", {
-						invalid: errors.email || errors.emailnotfound || errors.notActivated
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">
-					  {errors.email}
-					  {errors.emailnotfound}
-					  {errors.notActivated}
-					</span>
 				  </div>
 				  
 				  <div >
 					<input
 					  placeholder="Password"
 					  onChange={this.onChange}
-					  value={this.state.password}
-					  error={errors.password}
+					  value={password}
 					  id="password"
 					  type="password"
-					  className={classnames("", {
-						invalid: errors.password || errors.passwordincorrect
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">
-					  {errors.password}
-					  {errors.passwordincorrect}
-					</span>
 				  </div>
 				  
 				  <button type="submit" className="auth-button">
@@ -109,22 +86,16 @@ class Login extends Component{
 					<br/>
 					<Link to="/forgot-password">Forgot Password?</Link>
 				  </div>
-				  
 				</form>
+				
 			</div>
 		)
 	}
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
+const mapStateToProps = (state) => ({
+  authRegister: state.authRegister,
+  authInfo: state.authInfo
 });
 
 

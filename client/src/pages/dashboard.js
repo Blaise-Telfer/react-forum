@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../authorization/actions";
+import { logoutUser } from "../authorization/userActions";
 import axios from "axios";
 import _ from "lodash";
 import PropTester from "../filter/prop";
@@ -10,7 +9,6 @@ import Loading from "../components/loading";
 
 
 class Dashboard extends Component{
-	
 	constructor() {
         super();
         this.state = {
@@ -23,9 +21,8 @@ class Dashboard extends Component{
 			authors: [],
 			cities: []
         };
-		
 		this.handleFilter = this.handleFilter.bind(this);
-    }
+	}
 	
 	componentDidMount(){
 		axios.get(`api/posts/`).then(res => {
@@ -40,9 +37,8 @@ class Dashboard extends Component{
 					return (index === 0) || (value !== array[index-1]);
 				})
             });
-			console.log(res.data.posts);
 		});
-    }
+	}
 	
 	handleFilter(event) {
       const inputValue = event.currentTarget.value.toString().toLowerCase();
@@ -56,7 +52,7 @@ class Dashboard extends Component{
       }
       
       this.setState({filteredPosts: newFilteredPosts });
-    }
+	}
 	
 	onLogoutClick = e => {
 		e.preventDefault();
@@ -64,38 +60,10 @@ class Dashboard extends Component{
 	};
 	
 	render(){
-		const { user } = this.props.auth;
-		const yesAdmin = this.props.auth.user.role == "admin";
-		const loggedIn = this.props.auth.isAuthenticated == true;
 		const {loading, posts, currentPage, postsPerPage, filteredPosts, authors, categories, cities} = this.state;
-		console.log(this.props);
 		
 		return(
 			<div className="App">
-				
-				<div className="welcome">
-					{loggedIn ? 
-						 <div>
-						   <h1>Hello, {user.username}</h1>
-						   <h2>Welcome to Teach Meet</h2>
-						   <Link to={`/account/${user.username}`}><button>Your Profile</button></Link>
-						   <Link to="/newPost"><button>New Post</button></Link>
-						 </div>
-						 : 
-						 <div>
-						   <h1>Hello, guest</h1>
-						   <h2>Create an account if you wish to post and explore further</h2>
-						 </div>
-					}
-					
-					{yesAdmin ? 
-						 (<Link to={`/profile`}><button>Admin Board</button></Link>) 
-						 : 
-						 (null)
-					}
-				</div>
-				<hr/>
-				
 				
 				<div className="dashboard-container">
                     <h1>Job Posts</h1>
@@ -131,13 +99,8 @@ class Dashboard extends Component{
 	}
 }
 
-Dashboard.propTypes = {
-	logoutUser: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	auth: state.auth
+const mapStateToProps = (state) => ({
+  authInfo: state.authInfo
 });
 
 export default connect(mapStateToProps, {logoutUser})(Dashboard);

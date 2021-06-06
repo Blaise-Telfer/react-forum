@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import classnames from "classnames";
+import { Link, withRouter  } from "react-router-dom";
 import { connect } from "react-redux";
-import { registerUser } from "../authorization/actions";
+import { registerUser } from "../authorization/userActions";
+import { Message, Dimmer, Loader } from 'semantic-ui-react';
 import Accordion from "../components/accordion";
 
 
@@ -18,17 +17,13 @@ class Register extends Component{
 			email: "",
 			location: "",
 			password: "",
-			confirmPassword: "",
-			errors: {}
+			confirmPassword: ""
 		};
 	}
 	
-	
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.errors) {
-			this.setState({
-			errors: nextProps.errors
-			});
+	componentDidMount() {
+		if (this.props.authInfo.isAuthenticated) {
+	    	this.props.history.push("/");
 		}
 	}
 	
@@ -53,7 +48,8 @@ class Register extends Component{
 	
 	
 	render(){
-		const { errors } = this.state;
+	  const { username, firstname, lastname, email, location, password, confirmPassword } = this.state;
+	  const { loading, error } = this.props.authRegister;
 		
 		return(
 			<div className="register-container">
@@ -63,117 +59,86 @@ class Register extends Component{
 				</div>
 				
 				<form onSubmit={this.onSubmit} className="register-form">
+				  {loading ? (<Dimmer active inverted size="massive"><Loader inverted>Loading...</Loader></Dimmer>)
+				  : 
+				  error ? <Message className="error-text" content={error.message} />
+				  : null}
 				  
 				  <div>
 					<input
 					  placeholder="First Name"
 					  onChange={this.onChange}
-					  value={this.state.firstname}
-					  error={errors.firstname}
+					  value={firstname}
 					  id="firstname"
 					  type="text"
-					  className={classnames("register-input", {
-						invalid: errors.firstname
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">{errors.firstname}</span>
 				  </div>
 				  
 				  <div>
 					<input
 					  placeholder="Last Name"
 					  onChange={this.onChange}
-					  value={this.state.lastname}
-					  error={errors.lastname}
+					  value={lastname}
 					  id="lastname"
 					  type="text"
-					  className={classnames("register-input", {
-						invalid: errors.lastname
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">{errors.lastname}</span>
 				  </div>
 				  
 				  <div>
 					<input
 					  placeholder="Username"
 					  onChange={this.onChange}
-					  value={this.state.username}
-					  error={errors.username}
+					  value={username}
 					  id="username"
 					  type="text"
-					  className={classnames("register-input", {
-						invalid: errors.username
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">{errors.username}</span>
 				  </div>
 				  
 				  <div>
 					<input
 					  placeholder="Email"
 					  onChange={this.onChange}
-					  value={this.state.email}
-					  error={errors.email}
+					  value={email}
 					  id="email"
 					  type="email"
-					  className={classnames("register-input", {
-						invalid: errors.email
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">{errors.email}</span>
 				  </div>
 				  
 				  <div>
 					<input
 					  placeholder="City"
 					  onChange={this.onChange}
-					  value={this.state.location}
-					  error={errors.location}
+					  value={location}
 					  id="location"
 					  type="text"
-					  className={classnames("register-input", {
-						invalid: errors.location
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">{errors.location}</span>
 				  </div>
 				  
 				  <div>
 					<input
 					  placeholder="Password"
 					  onChange={this.onChange}
-					  value={this.state.password}
-					  error={errors.password}
+					  value={password}
 					  id="password"
 					  type="password"
-					  className={classnames("register-input", {
-						invalid: errors.password
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">{errors.password}</span>
 				  </div>
 				  
 				  <div>
 					<input
 					  placeholder="Confirm Password"
 					  onChange={this.onChange}
-					  value={this.state.confirmPassword}
-					  error={errors.confirmPassword}
+					  value={confirmPassword}
 					  id="confirmPassword"
 					  type="password"
-					  className={classnames("register-input", {
-						invalid: errors.confirmPassword
-					  })}
+					  required
 					/>
-					<br/>
-					<span className="red-text">{errors.confirmPassword}</span>
 				  </div>
 				  
 				  <div className="agreement">
@@ -199,15 +164,9 @@ class Register extends Component{
 	}
 }
 
-Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
+const mapStateToProps = (state) => ({
+  authRegister: state.authRegister,
+  authInfo: state.authInfo
 });
 
 export default connect(mapStateToProps, { registerUser })(withRouter(Register));

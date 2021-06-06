@@ -2,62 +2,40 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { verifyEmail } from "../authorization/actions";
-import { alertService } from '../authorization/alertServices';
-import Alert from "../components/alert";
+import { verifyCheck } from "../authorization/userActions";
+import { Message, Dimmer, Loader } from 'semantic-ui-react';
 
 
 class Verification extends Component{
-	
-	constructor() {
-		super();
-		this.state = {
-			errors: {}
-		};
-	}
 	
 	componentDidMount(){
 		const userInfo = {
 			email: this.props.match.params.email,
 			token: this.props.match.params.token
 		};
-		this.props.verifyEmail(userInfo, this.props.history);
-	}
-	
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.errors) {
-			this.setState({
-			errors: nextProps.errors
-			});
-		}
+		this.props.verifyCheck(userInfo, this.props.history);
 	}
 	
 	render(){
-		const { errors, loading } = this.state;
+		const { loading, error, message } = this.props.verifyAccount;
 		
 		return(
 			<div className="registration">
 				<h3>hi here's your verification</h3>
-				<span className="red-text">
-					{alertService.error(errors.linkExpired)}
-					{alertService.error(errors.alreadyUsed)}
-					{errors.noToken}
-					{errors.emailnotfound}
-				</span>
+				{loading ? (<Dimmer active inverted size="massive"><Loader inverted>Loading...</Loader></Dimmer>)
+				: 
+				message ? <Message className="success-text" content={message.message} />
+				:
+				error ? <Message className="error-text" content={error.message} />
+				: null}
 			</div>
 		);
 	}
 }
 
-
-Verification.propTypes = {
-	verifyEmail: PropTypes.func.isRequired,
-	errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	auth: state.auth,
-	errors: state.errors
+const mapStateToProps = (state) => ({
+  authInfo: state.authInfo,
+  verifyAccount: state.verifyAccount
 });
 
-export default connect(mapStateToProps, {verifyEmail})(Verification);
+export default connect(mapStateToProps, {verifyCheck})(Verification);

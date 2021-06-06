@@ -5,7 +5,7 @@ import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserAlt} from "@fortawesome/free-solid-svg-icons/faUserAlt";
 import { connect } from "react-redux";
-import { logoutUser } from "../authorization/actions";
+import { logoutUser } from "../authorization/userActions";
 
 
 class Profile extends Component{
@@ -24,7 +24,7 @@ class Profile extends Component{
 	
 	componentDidMount(){
 		const accountName = this.props.match.params.username;
-		const currentUser = this.props.auth.user.username;
+		const currentUser = this.props.authInfo.user.username;
 		
 		axios.get(`/api/users/user/${currentUser}`).then(res => {
 			this.setState({
@@ -32,13 +32,13 @@ class Profile extends Component{
             })
 			console.log(res)
 		});
-		console.log(this.props);
     }
 	
 	render(){
-		const yesAdmin = this.props.auth.user.role == "admin";
+		const yesAdmin = this.props.authInfo.user.role == "admin";
 		const accountName = this.props.match.params.username;
-		const currentUser = this.props.auth.user.username;
+		const currentUser = this.props.authInfo.user.username;
+		console.log(this.props);
 		
 		return(
 			<div className="App">
@@ -61,7 +61,7 @@ class Profile extends Component{
 							<h5 className="card-title">Posts</h5>
 							<p className="card-text">With supporting text below as a natural lead-in to
 							 additional content.</p>
-							<Link to="/postPanel" className="btn btn-light"><FontAwesomeIcon className="text-primary" icon={faUserAlt}/>Mange Posts</Link>
+							<Link to="/postPanel" className="btn btn-light"><FontAwesomeIcon className="text-primary" icon={faUserAlt}/>Manage Posts</Link>
 						</div>
 					</div>
 				</div>
@@ -72,13 +72,8 @@ class Profile extends Component{
 	}
 }
 
-Profile.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-};
-
 const mapStateToProps = state => ({
-  auth: state.auth
+  authInfo: state.authInfo
 });
 
 export default connect(mapStateToProps, {logoutUser})(Profile);

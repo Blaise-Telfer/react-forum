@@ -199,7 +199,7 @@ NewPost.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	auth: state.auth,
+	authInfo: state.authInfo,
 	errors: state.errors
 });
 
