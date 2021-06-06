@@ -7,16 +7,16 @@ const passport = require("passport");
 const crypto = require("crypto");
 const User = require("../models/userModel");
 const Post = require("../models/postModel");
+const { isAuth, isAdmin } = require("../controllers/authParameters");
 
 
 //cloudinary configuration 
 const cloudinary = require("cloudinary");
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
+  cloud_name: "dgs9kwwvq",
+  api_key: "756952434161266",
+  api_secret: "bLajHMp8E_GgMNX7EI3f89alJhw"
 });
-
 
 //multer configuration
 const multer = require("multer");
@@ -45,12 +45,8 @@ const pdfFilter = function(req, file, cb) {
 const uploadPDF = multer({ storage: storage, fileFilter: pdfFilter });
 
 
-
-
-
 //display user info on account page
 router.get('/user/:username', (req,res) => {
-    
 	User.findOne({username: req.params.username})
 	.select("-password -confirmPassword")
 	.then(user => {
@@ -62,9 +58,6 @@ router.get('/user/:username', (req,res) => {
 		}
 	})
 });
-
-
-
 
 //display the user's posts on the user's account page
 router.get('/:username', (req,res) => {
@@ -90,31 +83,27 @@ router.get('/:username', (req,res) => {
     })
 });
 
-
 //edit a profile
 router.post("/update/info", (req, res) => {
-	
 	const {userFrom, firstname, lastname, city, bio} = req.body;
 	User.findOneAndUpdate(
 		{ username: userFrom },
-		{
-			$set: {
-				firstname: firstname,
-				lastname: lastname,
-				location: city,
-				bio: bio
-			}
+		{$set: {
+		  firstname: firstname,
+		  lastname: lastname,
+		  location: city,
+		  bio: bio
+		  }
 		}
-		).then((edited) => {
-			return res.status(200).json({success: true, message: 'User edited.'});
-		}).catch((error) => {
-			return res.status(400).json({success: false, message: 'Edit failed.'});
-		});
+	).then((edited) => {
+	  return res.status(200).json({success: true, message: 'User edited.'});
+	}).catch((error) => {
+	  return res.status(400).json({success: false, message: 'Edit failed.'});
+	});
 });
 
 //edit profile pic
 router.post("/update/photo", upload.single("photo"), (req, res) => {
-	
 	cloudinary.v2.uploader.upload(req.file.path, function(err, result){
 		if (err) {
 		  return res.status(400).json({success: false, message: err});
@@ -124,20 +113,15 @@ router.post("/update/photo", upload.single("photo"), (req, res) => {
 		const newPic = result.secure_url;
 		const {userFrom, photo} = req.body;
 		User.findOneAndUpdate(
-			{ username: userFrom },
-			{
-				$set: {
-					photo: newPic
-				}
-			}
+		  { username: userFrom },
+		  { $set: {photo: newPic} }
 		).then((edited) => {
-			return res.status(200).json({success: true, message: 'User edited.'});
+		  return res.status(200).json({success: true, message: 'User edited.'});
 		}).catch((error) => {
-			return res.status(400).json({success: false, message: 'Edit failed.'});
+		  return res.status(400).json({success: false, message: 'Edit failed.'});
 		});
     });
 });
-
 
 //edit resume
 router.post("/update/resume", uploadPDF.single("resume"), (req, res) => {
@@ -151,22 +135,16 @@ router.post("/update/resume", uploadPDF.single("resume"), (req, res) => {
 		const newResume = result.secure_url;
 		const {userFrom, resume} = req.body;
 		User.findOneAndUpdate(
-			{ username: userFrom },
-			{
-				$set: {
-					resume: newResume
-				}
-			}
+		  { username: userFrom },
+		  { $set: {resume: newResume} }
 		).then((edited) => {
-			return res.status(200).json({success: true, message: 'User edited.'});
+		  return res.status(200).json({success: true, message: 'User edited.'});
 		}).catch((error) => {
-			return res.status(400).json({success: false, message: 'Edit failed.'});
+		  return res.status(400).json({success: false, message: 'Edit failed.'});
 		});
     });
 	
 });
-
-
 
 //display all users in the admin panel
 router.get('/', (req,res) => {
@@ -184,7 +162,19 @@ router.get('/', (req,res) => {
     })
 });
 
-
-
+//delete your account user
+router.delete("/:id", isAuth, async (req, res) => {
+  try{
+	const deletedUser = await User.findById(req.params.id);
+	if (deletedUser) {
+	  await deletedUser.remove();
+	  Post.deleteMany({ author: req.body.username })
+      return res.status(200).json({ message: "User Deleted" });
+    }
+  }
+  catch (error){
+	return res.status(400).json({ message: "Error in deleting user" });
+  }
+});
 
 module.exports = router;
