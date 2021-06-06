@@ -2,8 +2,15 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import cookie from 'js-cookie';
 import setAuthToken from "./token";
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING, DELETE_POST, GET_POSTS, POST_LOADING, VERIFY_EMAIL_ERROR } from "./types";
-import { alertService } from './alertServices';
+import { 
+  GET_ERRORS, 
+  SET_CURRENT_USER, 
+  USER_LOADING, 
+  DELETE_POST, 
+  GET_POSTS, 
+  POST_LOADING, 
+  VERIFY_EMAIL_ERROR 
+} from "./types";
 
 
 //create post
