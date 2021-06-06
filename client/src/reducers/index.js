@@ -1,10 +1,17 @@
-import { combineReducers } from "redux";
-import authReducer from "./authReducer";
-import errorReducer from "./errorReducer";
-import { reducer as formReducer } from 'redux-form';
+import { authRegisterReducer, 
+authLoginReducer, 
+fetchUsersReducer, 
+verifyAccountReducer,
+passwordForgotReducer,
+passwordResetReducer,
+userDeleteReducer } from "./authReducer";
 
-export default combineReducers({
-	auth: authReducer,
-	errors: errorReducer,
-	form: formReducer
-});
+export {
+  authRegisterReducer,
+  authLoginReducer,
+  fetchUsersReducer,
+  verifyAccountReducer,
+  passwordForgotReducer,
+  passwordResetReducer,
+  userDeleteReducer
+};
