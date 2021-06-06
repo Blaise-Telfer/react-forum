@@ -1,27 +1,23 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
-const AdminRoute = ({ component: Component, auth, ...rest }) => (
+const AdminRoute = ({ component: Component, authInfo, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
-      auth.user.role == "admin" ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to="/dashboard" />
-      )
+    render = {props =>
+      authInfo.user == null ? (  <Redirect to="/login" /> )
+	  :
+	  authInfo.user.role == "admin" ? ( <Component {...props} /> ) 
+	  :
+	  (  <Redirect to="/login" /> )
     }
   />
 );
 
-AdminRoute.propTypes = {
-  auth: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  authInfo: state.authInfo
 });
 
 export default connect(mapStateToProps)(AdminRoute);

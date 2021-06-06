@@ -8,7 +8,7 @@ import {faBookmark as solidFaBookmark} from "@fortawesome/free-solid-svg-icons";
 
 
 function FavoriteAction({postInfo, postId, userFrom}){
-	const user = useSelector((state) => state.auth.user);
+	const user = useSelector((state) => state.authInfo.user);
 	const postTitle = postInfo.title;
 	
 	const [FavoriteNumber, setFavoriteNumber] = useState(0);

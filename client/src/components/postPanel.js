@@ -185,13 +185,8 @@ class Users extends Component {
 
 }
 
-Users.propTypes = {
-    auth: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = state => ({
-    auth: state.auth,
-    records: state.records
+    authInfo: state.authInfo
 });
 
 export default connect(

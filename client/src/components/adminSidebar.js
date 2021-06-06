@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import { logoutUser } from "../authorization/actions";
+import { logoutUser } from "../authorization/userActions";
 
 
 class Sidebar extends Component {

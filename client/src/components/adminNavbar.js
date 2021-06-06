@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {connect} from "react-redux";
-import { logoutUser } from "../authorization/actions";
+import { logoutUser } from "../authorization/userActions";
 
 
 class Navbar extends Component {
@@ -14,7 +14,7 @@ class Navbar extends Component {
     };
 
     render() {
-        const { user } = this.props.auth;
+        const { user } = this.props.authInfo;
         return (
             <div className="container-fluid p-0">
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -46,13 +46,8 @@ class Navbar extends Component {
     }
 }
 
-Navbar.propTypes = {
-    logoutUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired
-};
-
 const mapStateToProps = state => ({
-    auth: state.auth
+    authInfo: state.authInfo
 });
 
 export default connect(

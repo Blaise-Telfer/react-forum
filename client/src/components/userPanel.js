@@ -131,7 +131,6 @@ class Users extends Component {
             .get(`/api/users`)
             .then(res => {
                 this.setState({records: res.data.users})
-				console.log(res.data.users)
             })
             .catch()
     }
@@ -141,8 +140,9 @@ class Users extends Component {
     }
 
     deleteRecord(record) {
+		const userid = record._id;
 		axios
-            .post(`/api/auth/delete`, {username: record.username})
+            .delete(`/api/auth/${userid}`)
             .then(res => {
                 if (res.status === 200) {
                    toast(res.data.message, {
@@ -154,7 +154,6 @@ class Users extends Component {
         this.getData();
     }
 	
-
     pageChange(pageData) {
         console.log("OnPageChange", pageData);
     }
@@ -187,13 +186,8 @@ class Users extends Component {
 
 }
 
-Users.propTypes = {
-    auth: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = state => ({
-    auth: state.auth,
-    records: state.records
+  authInfo: state.authInfo
 });
 
 export default connect(
