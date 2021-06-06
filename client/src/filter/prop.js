@@ -33,21 +33,18 @@ function PostTable({ posts, currentPage, pageSize }) {
       {!!posts &&
         currentPosts.map((post) => (
           <div key={post.id}> 
-			  { (new Date(post.date)).toDateString() }
-			  <br/>
-			  
-			  <Link to={`/post/${post.id}`}> {post.title} </Link>
-			  <br/>
-			  
-			  by {post.author}
-			  <br/>
-			  
-			  
-			  {post.city}
-			  <br/>
-			  
-			  {post.category}
-			  <hr/>
+			{ (new Date(post.date)).toDateString() }
+			<br/>
+			<Link to={`/post/${post.id}`}> {post.title} </Link>
+			<br/>
+			
+			by {post.author}
+			<br/>
+			{post.city}
+			<br/>
+			
+			{post.category}
+			<hr/>
 		  </div>
         ))}
     </div>
@@ -154,7 +151,6 @@ class PropTester extends React.Component {
 	render() {
 		const {currentCategory, currentAuthor, currentCity, searchFilter, pageSize, currentPage} = this.state;
 		const {categories, posts, authors, cities} = this.props;
-		console.log(this.props);
 		let filteredPosts = [];
 		
 		filteredPosts = categorize(this.props.posts, currentCategory);
