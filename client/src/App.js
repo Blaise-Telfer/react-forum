@@ -63,25 +63,25 @@ class App extends Component {
         <Router history={history}>
           <div className="App">
             <Navbar />
-			<Switch>
-			  <Route exact path="/" component={Landing} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-			  <Route exact path="/verify/:email/:token" component={Verification} />
-			  <Route exact path="/forgot-password" component={LoginForgot} />
-			  <Route exact path="/reset-password/:email/:token" component={PasswordReset} />
-              <Route exact path="/dashboard" component={Dashboard} />
+	    <Switch>
+		<Route exact path="/" component={Landing} />
+          	<Route exact path="/register" component={Register} />
+		<Route exact path="/login" component={Login} />
+		<Route exact path="/verify/:email/:token" component={Verification} />
+		<Route exact path="/forgot-password" component={LoginForgot} />
+		<Route exact path="/reset-password/:email/:token" component={PasswordReset} />
+       		<Route exact path="/dashboard" component={Dashboard} />
 			  
-			  <PrivateRoute exact path="/account/:username" component={Account} />
-			  <PrivateRoute exact path="/editProfile" component={EditProfile} />
-			  <PrivateRoute exact path="/settings/:username" component={Settings} />
-			  <PrivateRoute exact path="/newPost" component={NewPost} />
-			  <PrivateRoute exact path="/postPage" component={PostPage} />
-			  <PrivateRoute exact path="/post/:id" component={IndividualPost} />
+		<PrivateRoute exact path="/account/:username" component={Account} />
+		<PrivateRoute exact path="/editProfile" component={EditProfile} />
+		<PrivateRoute exact path="/settings/:username" component={Settings} />
+		<PrivateRoute exact path="/newPost" component={NewPost} />
+		<PrivateRoute exact path="/postPage" component={PostPage} />
+		<PrivateRoute exact path="/post/:id" component={IndividualPost} />
 			  
-			  <AdminRoute exact path="/profile/:username" component={Profile} />
-			  <AdminRoute exact path="/userPanel" component={Users} />
-			  <AdminRoute exact path="/postPanel" component={Posts} />
+		<AdminRoute exact path="/profile/:username" component={Profile} />
+		<AdminRoute exact path="/userPanel" component={Users} />
+		<AdminRoute exact path="/postPanel" component={Posts} />
             </Switch>
           </div>
         </Router>
